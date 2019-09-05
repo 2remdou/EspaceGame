@@ -1,18 +1,26 @@
 package com.oc;
 
+import java.util.Random;
+
 public class Joueur {
     private Boolean ia; // intelligence artificielle
-    private int combinaison;
+    private long combinaison;
 
-    public Joueur(Boolean ia) {
-        this.ia = ia;
+    public Joueur() {
+        this.ia = true;
+        combinaison = Math.round(Math.random()*1000);
+    }
+
+    public Joueur(int combinaison){
+        this.combinaison = combinaison;
+        this.ia = false;
     }
 
     public Boolean getIa() {
         return ia;
     }
 
-    public int getCombinaison() {
+    public long getCombinaison() {
         return combinaison;
     }
 

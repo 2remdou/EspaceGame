@@ -16,5 +16,10 @@ public class EscapeGame {
     }
 
     public void start(){
+
     }
+
+    /*public Joueur creationJoueurHumain(int combinaison){
+        long combinaire
+    }*/
 }

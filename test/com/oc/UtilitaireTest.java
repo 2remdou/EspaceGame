@@ -52,4 +52,10 @@ class UtilitaireTest {
         assertEquals(2,mode);
     }
 
+    @Test
+    public void Given_4Chiffres_When_generationCombinaire_Then_bonChiffre(){
+        int nb = Utilitaire.generationCombinaison(4);
+        assertTrue(nb>=1111 && nb<=9999);
+    }
+
 }

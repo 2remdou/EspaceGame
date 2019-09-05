@@ -2,6 +2,7 @@ package com.oc;
 
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Utilitaire {
@@ -47,5 +48,22 @@ public class Utilitaire {
             }
         }while (isNotValid);
         return input;
+    }
+
+    /**
+     *
+     * @param nbreChiffres nombre de chiffres de la combinaison
+     * @return la combinaison
+     */
+    public static int generationCombinaison(int nbreChiffres){
+        String min = "";
+        String max = "";
+        for(int i=1;i<=nbreChiffres;i++) {
+            min +="1";
+            max +="9";
+        }
+        Random random = new Random();
+        int nb = Integer.parseInt(min)+random.nextInt(Integer.parseInt(max)-Integer.parseInt(min));
+        return  nb;
     }
 }
