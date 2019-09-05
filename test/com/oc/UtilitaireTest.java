@@ -24,11 +24,11 @@ class UtilitaireTest {
     }
     @Test
     public void Given_mauvaiseValeur_When_appelleGetIntInput_Then_afficheError(){
-        System.setIn(new ByteArrayInputStream("15\n0\n".getBytes()));
+        System.setIn(new ByteArrayInputStream("15\n2\n".getBytes()));
         int valeur = Utilitaire.getIntInput(1,3);
         String[] output = outContent.toString().replace("\r\n","\n").split("\n");
         assertEquals("Veuillez recommencez, la saisie est incorrecte",output[0]);
-        assertEquals(0,valeur);
+        assertEquals(2,valeur);
     }
     @Test
     public void Given_mode_When_appellePoserQuestion_Then_afficheTextCorrect(){
