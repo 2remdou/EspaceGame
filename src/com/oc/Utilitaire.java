@@ -52,18 +52,44 @@ public class Utilitaire {
 
     /**
      *
+     * @param nbreChiffres
+     * @return [min,max]
+     */
+    public static int [] getBorne(int nbreChiffres){
+        String min = "1";
+        String max = "9";
+        for(int i=2;i<=nbreChiffres;i++) {
+            min +="0";
+            max +="9";
+        }
+        int [] borne = {Integer.parseInt(min),Integer.parseInt(max)};
+        return borne;
+    }
+
+    /**
+     *
      * @param nbreChiffres nombre de chiffres de la combinaison
      * @return la combinaison
      */
     public static int generationCombinaison(int nbreChiffres){
-        String min = "";
-        String max = "";
-        for(int i=1;i<=nbreChiffres;i++) {
-            min +="1";
-            max +="9";
-        }
+
         Random random = new Random();
-        int nb = Integer.parseInt(min)+random.nextInt(Integer.parseInt(max)-Integer.parseInt(min));
-        return  nb;
+        int[] borne = getBorne(nbreChiffres);
+        int min =  borne[0];
+        int max = borne[1];
+        int nb = min+random.nextInt(max-min);
+            return  nb;
+    }
+
+    /**
+     *
+     * @param nbreChiffres nombre de chiffres de la combinaison
+     * @return la combinaison du joueur
+     */
+    public static int getCombinaison(int nbreChiffres){
+        System.out.println("Donner une combinaison de ?? chiffres");
+        int[] borne = getBorne(nbreChiffres);
+        int combinaison = getIntInput(borne[0],borne[1]);
+        return combinaison;
     }
 }

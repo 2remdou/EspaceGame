@@ -53,9 +53,16 @@ class UtilitaireTest {
     }
 
     @Test
+    public void Given_4Chiffres_When_getBorne_Then_mixMax(){
+        int [] borne = Utilitaire.getBorne(4);
+        assertEquals(borne[0],1000);
+        assertEquals(borne[1],9999);
+    }
+
+    @Test
     public void Given_4Chiffres_When_generationCombinaire_Then_bonChiffre(){
         int nb = Utilitaire.generationCombinaison(4);
-        assertTrue(nb>=1111 && nb<=9999);
+        assertTrue(nb>=1000 && nb<=9999);
     }
 
 }

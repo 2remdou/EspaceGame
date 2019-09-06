@@ -3,28 +3,39 @@ package com.oc;
 import java.util.Random;
 
 public class Joueur {
-    private Boolean ia; // intelligence artificielle
-    private long combinaison;
+    private int combinaison;
+    private int proposition;
 
-    public Joueur() {
-        this.ia = true;
-        combinaison = Math.round(Math.random()*1000);
-    }
+    public Joueur(){ }
 
     public Joueur(int combinaison){
         this.combinaison = combinaison;
-        this.ia = false;
     }
 
-    public Boolean getIa() {
-        return ia;
+    public String defense(Joueur attaquant){
+        String reponse = "";
+
+        for(int i=0;i<Integer.toString(this.combinaison).length();i++){
+            if(Integer.toString(this.combinaison).charAt(i)==Integer.toString(attaquant.getProposition()).charAt(i)) reponse+="=";
+            else if(Integer.toString(this.combinaison).charAt(i)<Integer.toString(attaquant.getProposition()).charAt(i)) reponse+="-";
+            else reponse+="+";
+        }
+        return reponse;
     }
 
-    public long getCombinaison() {
+    public int getCombinaison() {
         return combinaison;
     }
 
     public void setCombinaison(int combinaison) {
         this.combinaison = combinaison;
+    }
+
+    public int getProposition() {
+        return proposition;
+    }
+
+    public void setProposition(int proposition) {
+        this.proposition = proposition;
     }
 }
