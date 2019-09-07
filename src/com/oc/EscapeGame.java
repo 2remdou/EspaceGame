@@ -22,6 +22,18 @@ public class EscapeGame {
         return mode;
     }
 
+    private int propositionHumaine(Joueur attaquant,Joueur defenseur){
+        System.out.print("Propostion : ");
+        int proposition = Utilitaire.getIntInput(this.min,this.max);
+        attaquant.getProposition().add(proposition);
+        return  proposition;
+    }
+
+    private int propositionIA(Joueur attaquant,Joueur defenseur,String reponsePrecedente){
+        int propostion = attaquant.faireProposition(this.nbreChiffres,reponsePrecedente);
+        attaquant.getProposition().add(propostion);
+        return propostion;
+    }
 
     public void startModeChallenger(){
         int combinaison = Utilitaire.generationCombinaison(this.nbreChiffres);
@@ -29,27 +41,55 @@ public class EscapeGame {
         Joueur defenseur = new Joueur(combinaison);
         Joueur attaquant = new Joueur();
         do{
-            System.out.print("Propostion : ");
-            proposition = Utilitaire.getIntInput(this.min,this.max);
-            attaquant.getProposition().add(proposition);
+            proposition = propositionHumaine(attaquant,defenseur);
             String res = defenseur.recevoirPropostion(proposition);
             System.out.println("Réponse : "+res);
-        }while (defenseur.getCombinaison()!=proposition);
+        }while (combinaison!=proposition);
     }
 
     public void startModeDefense(){
         System.out.println("Donner une combinaison de "+ this.nbreChiffres +" chiffres");
         int combinaison = Utilitaire.getIntInput(this.min,this.max);
+        int proposition;
         Joueur defenseur = new Joueur(combinaison);
         Joueur attaquant = new Joueur();
         String reponse=null;
         int i = 1;
         do{
-            int propostion = attaquant.faireProposition(this.nbreChiffres,reponse);
-            attaquant.getProposition().add(propostion);
-            reponse = defenseur.recevoirPropostion(propostion);
-            System.out.println(i++ +" - "+"Propostion "+propostion+" -> Réponse : "+reponse);
-        }while (defenseur.getCombinaison()!=attaquant.getProposition().get(attaquant.getProposition().size()-1));
+            proposition = this.propositionIA(attaquant,defenseur,reponse);
+            reponse = defenseur.recevoirPropostion(proposition);
+            System.out.println(i++ +" - "+"Propostion "+proposition+" -> Réponse : "+reponse);
+        }while (combinaison!=proposition);
+    }
+    public void startModeDuel(){
+        System.out.println("Donner une combinaison de "+ this.nbreChiffres +" chiffres");
+        int combinaison = Utilitaire.getIntInput(this.min,this.max);
+        Joueur humain = new Joueur(combinaison);
+        combinaison = Utilitaire.generationCombinaison(this.nbreChiffres);
+        Joueur ia = new Joueur(combinaison);
+        boolean winHumain = false;
+        int proposition;
+        String reponseHumaine=null;
+        String reponseIA=null;
+        while (true){
+            proposition = this.propositionHumaine(humain,ia);
+            reponseIA = ia.recevoirPropostion(proposition);
+            System.out.println("Réponse : "+reponseIA);
+            if(proposition==ia.getCombinaison()){
+                winHumain = true;
+                break;
+            }
+            proposition = this.propositionIA(ia,humain,reponseHumaine);
+            reponseHumaine = humain.recevoirPropostion(proposition);
+            System.out.println("Propostion "+proposition+" -> Réponse : "+reponseHumaine);
+            if(proposition == humain.getCombinaison()){
+                winHumain = false;
+                break;
+            }
+        }
+        if(winHumain) System.out.println("Bravo vous avez gagné");
+        else System.out.println("Désolé, vous avez perdu");
+
     }
 
     public void start(){
@@ -63,6 +103,7 @@ public class EscapeGame {
                 this.startModeDefense();
                 break;
             case 3:
+                this.startModeDuel();
                 break;
         }
 

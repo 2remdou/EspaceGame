@@ -43,7 +43,7 @@ public class Joueur {
         for (int i=0;i<reponsePrecedente.length();i++){
             if(reponsePrecedente.charAt(i)=="=".charAt(0)) proposition += Integer.toString(propositionPrecedente).charAt(i);
             else if(reponsePrecedente.charAt(i)=="-".charAt(0)){
-                proposition += Utilitaire.generationNbreAletoire(0,Utilitaire.getChiffreWithIndex(propositionPrecedente,i));
+                proposition += Utilitaire.generationNbreAletoire(1,Utilitaire.getChiffreWithIndex(propositionPrecedente,i));
             }else{
                 proposition += Utilitaire.generationNbreAletoire(Utilitaire.getChiffreWithIndex(propositionPrecedente,i),9);
             }
