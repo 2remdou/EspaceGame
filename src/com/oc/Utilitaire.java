@@ -21,7 +21,7 @@ public class Utilitaire {
         for(int i=0;i<=choix.length-1;i++){
             System.out.println((i+1)+" - "+ choix[i]);
         }
-        System.out.println("Veuillez choisir :");
+        System.out.print("Veuillez choisir :");
         return getIntInput(1,choix.length);
     }
 
@@ -67,18 +67,28 @@ public class Utilitaire {
     }
 
     /**
+     * Genere un nombre aleatoire dans un intervalle
+     * @param min valeur minimale
+     * @param max valeur maximale
+     * @return le nombre généré
+     */
+    public static int generationNbreAletoire(int min,int max){
+        if(min==max) return  min;
+        Random random = new Random();
+        return  min+random.nextInt(max-min);
+    }
+
+    /**
      *
      * @param nbreChiffres nombre de chiffres de la combinaison
      * @return la combinaison
      */
     public static int generationCombinaison(int nbreChiffres){
 
-        Random random = new Random();
         int[] borne = getBorne(nbreChiffres);
         int min =  borne[0];
         int max = borne[1];
-        int nb = min+random.nextInt(max-min);
-            return  nb;
+        return  generationNbreAletoire(min,max);
     }
 
     /**
@@ -91,5 +101,9 @@ public class Utilitaire {
         int[] borne = getBorne(nbreChiffres);
         int combinaison = getIntInput(borne[0],borne[1]);
         return combinaison;
+    }
+
+    public static int getChiffreWithIndex(int nbre,int pos){
+        return Integer.parseInt(Character.toString(Integer.toString(nbre).charAt(pos)));
     }
 }

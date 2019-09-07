@@ -11,6 +11,7 @@ public class EscapeGame {
      */
     public EscapeGame(int mode,int nbreChiffres){
         if(mode<1 || mode>3) throw new MauvaisModeGameException();
+        this.mode = mode;
         this.nbreChiffres = nbreChiffres;
         int [] borne = Utilitaire.getBorne(nbreChiffres);
         this.min = borne[0];
@@ -22,7 +23,7 @@ public class EscapeGame {
     }
 
 
-    public void startChallenger(){
+    public void startModeChallenger(){
         int combinaison = Utilitaire.generationCombinaison(this.nbreChiffres);
         int proposition;
         Joueur defenseur = new Joueur(combinaison);
@@ -30,21 +31,36 @@ public class EscapeGame {
         do{
             System.out.print("Propostion : ");
             proposition = Utilitaire.getIntInput(this.min,this.max);
-            attaquant.setProposition(proposition);
-        }while (defenseur.getCombinaison()!=attaquant.getProposition());
+            attaquant.getProposition().add(proposition);
+            String res = defenseur.recevoirPropostion(proposition);
+            System.out.println("Réponse : "+res);
+        }while (defenseur.getCombinaison()!=proposition);
+    }
+
+    public void startModeDefense(){
+        System.out.println("Donner une combinaison de "+ this.nbreChiffres +" chiffres");
+        int combinaison = Utilitaire.getIntInput(this.min,this.max);
+        Joueur defenseur = new Joueur(combinaison);
+        Joueur attaquant = new Joueur();
+        String reponse=null;
+        int i = 1;
+        do{
+            int propostion = attaquant.faireProposition(this.nbreChiffres,reponse);
+            attaquant.getProposition().add(propostion);
+            reponse = defenseur.recevoirPropostion(propostion);
+            System.out.println(i++ +" - "+"Propostion "+propostion+" -> Réponse : "+reponse);
+        }while (defenseur.getCombinaison()!=attaquant.getProposition().get(attaquant.getProposition().size()-1));
     }
 
     public void start(){
-        System.out.printf("mode="+this.mode);
         Joueur defenseur;
         Joueur attaquant;
         switch (this.mode){
             case 1:
-                this.startChallenger();
+                this.startModeChallenger();
                 break;
             case 2:
-                defenseur = this.creationJoueurHumain();
-                attaquant = this.creationJoueurIA();
+                this.startModeDefense();
                 break;
             case 3:
                 break;

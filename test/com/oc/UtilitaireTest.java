@@ -23,6 +23,11 @@ class UtilitaireTest {
         System.setOut(System.out);
     }
     @Test
+    public void Given_nombre_When_getChiffreWithIndex_Then_getChiffre(){
+        int nombre = 4862;
+        assertEquals(Utilitaire.getChiffreWithIndex(nombre,2),6);
+    }
+    @Test
     public void Given_mauvaiseValeur_When_appelleGetIntInput_Then_afficheError(){
         System.setIn(new ByteArrayInputStream("15\n2\n".getBytes()));
         int valeur = Utilitaire.getIntInput(1,3);
