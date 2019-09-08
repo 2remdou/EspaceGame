@@ -3,16 +3,20 @@ package com.oc;
 public class EscapeGame {
     private int mode;
     private int nbreChiffres;
+    private boolean modeDev;
+    private int nbreEssais;
     private int min;
     private int max;
     /**
      *
      * @param mode le mode [1- Challenger,2- Défense, 3- Duel]
      */
-    public EscapeGame(int mode,int nbreChiffres){
+    public EscapeGame(int mode,int nbreChiffres,int nbreEssais,boolean modeDev){
         if(mode<1 || mode>3) throw new MauvaisModeGameException();
         this.mode = mode;
         this.nbreChiffres = nbreChiffres;
+        this.nbreEssais = nbreEssais;
+        this.modeDev = modeDev;
         int [] borne = Utilitaire.getBorne(nbreChiffres);
         this.min = borne[0];
         this.max = borne[1];
@@ -55,11 +59,19 @@ public class EscapeGame {
         Joueur defenseur = this.creationJoueurIA();
         int proposition;
         Joueur attaquant = new Joueur();
+        int i=1;
+        if(this.modeDev)
+            System.out.println("(Combinaison secrète: "+defenseur.getCombinaison()+")");
         do{
             proposition = propositionHumaine(attaquant,defenseur);
             String res = defenseur.recevoirPropostion(proposition);
             System.out.println("Réponse : "+res);
-        }while (defenseur.getCombinaison()!=proposition);
+            i++;
+        }while (defenseur.getCombinaison()!=proposition && i<=this.nbreEssais);
+        if(defenseur.getCombinaison()==proposition)
+            System.out.println("Bravo, vous avez gagné");
+        else
+            System.out.println("Désolé, vous avez perdu");
     }
 
     /**
@@ -74,8 +86,14 @@ public class EscapeGame {
         do{
             proposition = this.propositionIA(attaquant,defenseur,reponse);
             reponse = defenseur.recevoirPropostion(proposition);
-            System.out.println(i++ +" - "+"Propostion "+proposition+" -> Réponse : "+reponse);
-        }while (defenseur.getCombinaison()!=proposition);
+            System.out.println("Propostion "+proposition+" -> Réponse : "+reponse);
+            i++;
+        }while (defenseur.getCombinaison()!=proposition && i<=this.nbreEssais);
+        if(defenseur.getCombinaison()!=proposition)
+            System.out.println("Bravo, vous avez gagné");
+        else
+            System.out.println("Désolé, vous avez perdu");
+
     }
 
     /**
@@ -113,8 +131,7 @@ public class EscapeGame {
      * Pour lancer la partie
      */
     public void start(){
-        Joueur defenseur;
-        Joueur attaquant;
+
         switch (this.mode){
             case 1:
                 this.startModeChallenger();
@@ -138,5 +155,9 @@ public class EscapeGame {
     public Joueur creationJoueurIA(){
         int combinaison = Utilitaire.generationCombinaison(this.nbreChiffres);
         return new Joueur(combinaison);
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
     }
 }
