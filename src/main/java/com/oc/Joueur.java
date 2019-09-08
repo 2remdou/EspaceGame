@@ -10,6 +10,7 @@ public class Joueur {
     public Joueur(){ }
 
     public Joueur(int combinaison){
+        Logger.info("Creation d'un joueur avec "+combinaison+" comme combinaison");
         this.combinaison = combinaison;
     }
 
