@@ -11,6 +11,6 @@ Vous jouez le rôle de défenseur, c'est à proposer une combinaison de X chiffr
 3. Duel:
 Les deux joueurs proposent chacun une combinaison de X chiffres, et le gagnant est celui qui arrive à deviner en premier la combinaison de son adversaire.
 
-## Compiler
+## Comment compiler
 
-## Lancer
+## Comment lancer
