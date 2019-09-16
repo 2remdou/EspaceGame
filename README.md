@@ -11,6 +11,13 @@ Vous jouez le rôle de défenseur, c'est à proposer une combinaison de X chiffr
 3. Duel:
 Les deux joueurs proposent chacun une combinaison de X chiffres, et le gagnant est celui qui arrive à deviner en premier la combinaison de son adversaire.
 
-## Comment compiler
-
-## Comment lancer
+## Comment compiler ?
+- [Installer Maven](https://www.baeldung.com/install-maven-on-windows-linux-mac)
+- Lancer la compilation
+```
+  mvn clean package
+```
+## Comment lancer ?
+```
+  java -cp .\target\EspaceGame-1.0.jar com.oc.Main
+```
