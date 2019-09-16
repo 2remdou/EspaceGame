@@ -3,7 +3,7 @@ package com.oc;
 import org.apache.logging.log4j.LogManager;
 
 public class Logger {
-    private static org.apache.logging.log4j.Logger logger = LogManager.getLogger();
+    private static org.apache.logging.log4j.Logger logger = LogManager.getLogger(EscapeGame.class);
 
     public static void error(String message){
         logger.error(message);
